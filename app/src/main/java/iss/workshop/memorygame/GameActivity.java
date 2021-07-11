@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
@@ -30,7 +29,7 @@ public class GameActivity extends AppCompatActivity {
         GridView gridView = (GridView) findViewById(R.id.gameImageGridView);
 
         initImages();
-        gridView.setAdapter(new ImageAdapter(this, mbaseImages));
+        gridView.setAdapter(new GamePlayImageAdapter(this, mbaseImages));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

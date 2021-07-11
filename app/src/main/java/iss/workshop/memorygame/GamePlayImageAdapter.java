@@ -9,13 +9,13 @@ import android.widget.ImageView;
 
 import java.util.Arrays;
 
-public class ImageAdapter extends BaseAdapter {
+public class GamePlayImageAdapter extends BaseAdapter {
 
     private Context mContext;
 
     private Integer[] mImageIds;
 
-    public ImageAdapter(Context context, Integer[] ids){
+    public GamePlayImageAdapter(Context context, Integer[] ids){
         mContext = context;
         mImageIds = ids;
     }
