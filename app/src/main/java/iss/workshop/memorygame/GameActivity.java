@@ -2,11 +2,14 @@ package iss.workshop.memorygame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Chronometer;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,20 +29,23 @@ public class GameActivity extends AppCompatActivity {
     private int resultCount = 0;
 
     TextView resultCountTextView;
-    TextView timerTextView;
+    Chronometer gameChronometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        resultCountTextView = (TextView) findViewById(R.id.txtGamePlayResult);
-        timerTextView = (TextView) findViewById(R.id.txtGamePlayTimer);
+        Intent mEndActivityIntent = new Intent(this, EndActivity.class);
 
+        resultCountTextView = (TextView) findViewById(R.id.txtGamePlayResult);
         GridView gridView = (GridView) findViewById(R.id.gameImageGridView);
+        gameChronometer = (Chronometer) findViewById(R.id.gameChronometer);
+        gameChronometer.setBase(SystemClock.elapsedRealtime());
+        gameChronometer.start();
 
         initImages();
-        runCountDownTimer();
+
         gridView.setAdapter(new GamePlayImageAdapter(this, mbaseImages));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,6 +64,15 @@ public class GameActivity extends AppCompatActivity {
                             previousImage = -1;
                             imageView.setImageResource(gameImages.get(position));
                             resultCountTextView.setText(++resultCount + " of 6 matches");
+                            if(resultCount==6){
+
+                                long gamePlayTimeTaken = SystemClock.elapsedRealtime() - gameChronometer.getBase();
+                                gameChronometer.stop();
+
+                                mEndActivityIntent.putExtra("gamePlayTimeTaken", gamePlayTimeTaken);
+                                startActivity(mEndActivityIntent);
+
+                            }
 
                         }else{
                             imageView.setImageResource(gameImages.get(position));
@@ -79,20 +94,6 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    protected void runCountDownTimer(){
-        new CountDownTimer(180000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                NumberFormat f = new DecimalFormat("00");
-                long hour = (millisUntilFinished / 3600000) % 24;
-                long min = (millisUntilFinished / 60000) % 60;
-                long sec = (millisUntilFinished / 1000) % 60;
-                timerTextView.setText(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
-            }
-            public void onFinish() {
-                timerTextView.setText("00:00:00");
-            }
-        }.start();
-    }
 
     protected void initImages(){
         Arrays.fill(mbaseImages, R.drawable.img_0);
