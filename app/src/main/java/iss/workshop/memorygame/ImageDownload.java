@@ -77,9 +77,9 @@ public class ImageDownload {
         try{
             URL url=new URL(imgURL);
             URLConnection conn=url.openConnection();
-            conn.setDoInput(true);
-            conn.setConnectTimeout(10*1000);
-            conn.connect();
+//            conn.setDoInput(true);
+//            conn.setConnectTimeout(10*1000);
+//            conn.connect();
 
             InputStream in=conn.getInputStream();
             Bitmap bitmap= BitmapFactory.decodeStream(in);
