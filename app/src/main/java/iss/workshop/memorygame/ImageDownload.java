@@ -26,9 +26,8 @@ public class ImageDownload {
             HttpURLConnection connection = null;
             if (urlConnection instanceof HttpURLConnection) {
                 connection = (HttpURLConnection) urlConnection;
-            } else {
-                System.out.println("Please enter URL again");//need edit
             }
+
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));
             String urlString = "";
@@ -44,21 +43,28 @@ public class ImageDownload {
     }
 
     protected List<String> imgUrlList(String urlString){
-        List<String> srcList = new ArrayList<String>(); //用来存储获取到的图片地址
-        Pattern p = Pattern.compile("<(img|IMG)(.*?)(>|></img>|/>)");//匹配字符串中的img标签
+        List<String> tempSrcList = new ArrayList<String>();
+        Pattern p = Pattern.compile("<(img|IMG)(.*?)(>|></img>|/>)");
         Matcher matcher = p.matcher(urlString);
         boolean hasPic = matcher.find();
-        if(hasPic)//判断是否含有图片
+        if(hasPic)
         {
             while (hasPic)
             {
-                String group = matcher.group(2);//获取第二个分组的内容，也就是 (.*?)匹配到的
-                Pattern srcText = Pattern.compile("(src|SRC)=(\"|\')(.*?)(\"|\')");//匹配图片的地址
+                String group = matcher.group(2);
+                Pattern srcText = Pattern.compile("(src|SRC)=(\"|\')(.*?)(\"|\')");
                 Matcher matcher2 = srcText.matcher(group);
                 if (matcher2.find()) {
-                    srcList.add(matcher2.group(3));//把获取到的图片地址添加到列表中
+                    tempSrcList.add(matcher2.group(3));
                 }
                 hasPic = matcher.find();
+            }
+        }
+
+        List<String> srcList = new ArrayList<String>();
+        for(int i=0;i<tempSrcList.size();i++){
+            if(!srcList.contains(tempSrcList.get(i))){
+                srcList.add(tempSrcList.get(i));
             }
         }
 
@@ -77,9 +83,6 @@ public class ImageDownload {
         try{
             URL url=new URL(imgURL);
             URLConnection conn=url.openConnection();
-//            conn.setDoInput(true);
-//            conn.setConnectTimeout(10*1000);
-//            conn.connect();
 
             InputStream in=conn.getInputStream();
             Bitmap bitmap= BitmapFactory.decodeStream(in);

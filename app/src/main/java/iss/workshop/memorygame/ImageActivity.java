@@ -4,16 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,7 +23,6 @@ public class ImageActivity extends AppCompatActivity {
 
     EditText mInputURLTxt;
     Button mFetchBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +31,6 @@ public class ImageActivity extends AppCompatActivity {
         mInputURLTxt=(EditText)findViewById(R.id.inputURL);
         mFetchBtn=(Button)findViewById(R.id.fetchBtn);
         mGridView=findViewById(R.id.grid_view);
-
 
         setDefaultImage();
 
@@ -49,6 +44,7 @@ public class ImageActivity extends AppCompatActivity {
 
     private void setImage(){
         String inputUrl=mInputURLTxt.getText().toString();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -57,12 +53,18 @@ public class ImageActivity extends AppCompatActivity {
                 List<String> srcList = imageDownload.imgUrlList(urlString);
 
                 for (int i=0;i<20;i++) {
-                    Bitmap bitmap=imageDownload.downloadImage(srcList.get(i));
-                    updateGridView(i,bitmap);
+                    try {
+                        Thread.sleep(1500);
+                        Bitmap bitmap=imageDownload.downloadImage(srcList.get(i));
+                        imgInfoList.add(bitmap);
+                        imgInfoList.remove(i);
+                        updateGridView(i,bitmap);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).start();
-
     }
 
     private void updateGridView(int i,Bitmap bitmap){
@@ -73,7 +75,7 @@ public class ImageActivity extends AppCompatActivity {
                 ImageView imageView=(ImageView) mGridView.getChildAt(i);
                 imageView.setImageBitmap(bitmap);
             }
-        },5000);
+        },3000);
     }
 
     private void setDefaultImage(){
@@ -94,17 +96,11 @@ public class ImageActivity extends AppCompatActivity {
             public void run() {
                 setDefaultGridView();
             }
-        },3000);
+        },2000);
     }
 
     private void setDefaultGridView(){
         mGridView.setAdapter(new ImageAdapter(this,imgInfoList));
     }
 
-    private void removeDefaultImage(){
-        Iterator<Bitmap> iterator=imgInfoList.iterator();
-        while (iterator.hasNext()){
-            iterator.remove();
-        }
-    }
 }
