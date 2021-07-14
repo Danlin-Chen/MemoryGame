@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,19 +25,41 @@ public class MainActivity extends AppCompatActivity {
         mPlayerName = findViewById(R.id.playerName);
         mSubmitBtn = findViewById(R.id.submitBtn);
 
+        MediaPlayer mediaplayer = MediaPlayer.create(MainActivity.this, R.raw.startbtn_sound);
+
+        // Additional validation which only allows letters, digits, _ and - is set at the activity_main.xml
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences pref = getSharedPreferences("players_information", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
+                if(!isEmpty(mPlayerName)) {
 
-                player = mPlayerName.getText().toString();
-                editor.putString("player", player);
-                editor.commit();
+                    SharedPreferences pref = getSharedPreferences("players_information", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
 
-                Intent intent = new Intent(MainActivity.this, EndActivity.class);
-                startActivity(intent);
+                    player = mPlayerName.getText().toString();
+                    editor.putString("player", player);
+                    editor.commit();
+
+                    mediaplayer.start();
+                    startImageActivity();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    private void startImageActivity(){
+        Intent intent = new Intent(this, ImageActivity.class);
+        startActivity(intent);
+    }
+
+    private boolean isEmpty(EditText editText) {
+        if (editText.getText().toString().trim().length() > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }

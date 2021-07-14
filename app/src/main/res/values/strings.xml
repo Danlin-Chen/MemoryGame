@@ -5,4 +5,18 @@
     <string name="back_to_main">Play Again</string>
     <string name="enter_player_name">Enter your name...</string>
     <string name="play_now">Play Now</string>
+    <string name="introTxt">GDipSA52 Team 3</string>
+    <string name="nameTxt">Enter your Name</string>
+    <string name="howToPlay">
+        \u0020\u0020How to Play?\n
+        1. Enter your name and press \"Start\"\n
+        2. Enter a URL and press \"Fetch\"\n
+        3. Wait for 20 images to be downloaded\n
+        4. Select 6 images for the game\n
+        5. Click on any 2 cards to see if they match\n
+        6. Continue until all cards are matched\n
+        7. The timer will stops when all the cards are matched\n
+        8. View your current and best timing\n
+    </string>
+
 </resources>
