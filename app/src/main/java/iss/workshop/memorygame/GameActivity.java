@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     private List<Integer> imagesFound = new ArrayList<Integer>();
     private int previousImage = -1;
     private int resultCount = 0;
+    private boolean itemClickFlag = true;
 
     TextView resultCountTextView;
     Chronometer gameChronometer;
@@ -60,10 +61,12 @@ public class GameActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ImageView imageView = (ImageView) view;
 
-                if((!imagesFound.contains(position)) && position!=previousImage){
+                if((!imagesFound.contains(position)) && position!=previousImage && itemClickFlag==true){
+                    itemClickFlag = false;
                     if(previousImage == -1){
                         previousImage = position;
                         flipCard(imageView,gameImages.get(position));
+                        itemClickFlag = true;
                     }else{
                         if(gameImages.get(previousImage)==gameImages.get(position)){
                             imagesFound.add(position);
@@ -91,6 +94,8 @@ public class GameActivity extends AppCompatActivity {
 
                             }
 
+                            itemClickFlag = true;
+
                         }else{
                             flipCard(imageView,gameImages.get(position));
                             final Handler handler = new Handler();
@@ -101,6 +106,7 @@ public class GameActivity extends AppCompatActivity {
                                     flipCard(imageView,R.drawable.team_image);
                                     flipCard(prevView,R.drawable.team_image);
                                     previousImage = -1;
+                                    itemClickFlag = true;
                                 }
                             }, 1000);
                         }
