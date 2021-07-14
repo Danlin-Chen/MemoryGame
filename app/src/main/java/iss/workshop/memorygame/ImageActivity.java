@@ -3,6 +3,7 @@ package iss.workshop.memorygame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,13 @@ public class ImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setImage();
+//                mFetchBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        setDefaultImage();
+//                        setImage();
+//                    }
+//                });
             }
         });
     }
@@ -79,27 +87,11 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void setDefaultImage(){
-        String defaultUrl="https://cdn.stocksnap.io/img-thumbs/280h/tilesshapes-texture_6U6EAPKKD7.jpg";
-        ImageDownload imageDownload=new ImageDownload();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap defaultBitmap=imageDownload.downloadImage(defaultUrl);
-                for (int i=0;i<20;i++) {
-                    imgInfoList.add(defaultBitmap);
-                }
-            }
-        }).start();
 
-        mGridView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setDefaultGridView();
-            }
-        },2000);
-    }
-
-    private void setDefaultGridView(){
+        Bitmap defaultBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.team_image);
+        for (int i=0;i<20;i++) {
+            imgInfoList.add(defaultBitmap);
+        }
         mGridView.setAdapter(new ImageAdapter(this,imgInfoList));
     }
 
