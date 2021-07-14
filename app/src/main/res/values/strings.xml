@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Memory Game</string>
+    <string name="score">Score</string>
+    <string name="leaderboard">Leaderboard: </string>
+    <string name="back_to_main">Back to Main Page</string>
+    <string name="enter_player_name">Enter your name...</string>
+    <string name="play_now">Play Now</string>
 </resources>
