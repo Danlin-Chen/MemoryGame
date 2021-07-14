@@ -41,9 +41,11 @@ public class GamePlayImageAdapter extends BaseAdapter {
 
         if (convertView == null) {
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(300, 400));
+            imageView.setLayoutParams(new GridView.LayoutParams(310, 380));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(15, 15, 15, 15);
+            imageView.setCropToPadding(true);
+            imageView.setBackgroundResource(R.drawable.bg_card);
         }
         else
         {
