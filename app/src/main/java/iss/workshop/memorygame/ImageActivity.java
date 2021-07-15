@@ -69,18 +69,18 @@ public class ImageActivity extends AppCompatActivity {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i>=downloadedImages || !downloadCompleted){
+                if (i >= downloadedImages || !downloadCompleted) {
                     return;
                 }
-                if (selectedImgList.size()<numberOfImages) {
+                if (selectedImgList.size() < numberOfImages) {
                     ImageView imageView = (ImageView) view;
-                    if (!selectedImgList.contains(i)){
+                    if (!selectedImgList.contains(i)) {
                         addEffect(imageView);
                         selectedImgList.add(i);
                         if (selectedImgList.size() == numberOfImages) {
                             startGame(selectedImgList);
                         }
-                    }else if (selectedImgList.contains(i)){
+                    } else if (selectedImgList.contains(i)) {
                         removeEffect(imageView);
                         selectedImgList.remove(Integer.valueOf(i));
                     }
@@ -92,7 +92,7 @@ public class ImageActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (selectedImgList.size()==numberOfImages){
+        if (selectedImgList.size() == numberOfImages) {
             mGridView.setAdapter(new ImageAdapter(this, imgDownloadList));
             resetImages();
         }
@@ -134,9 +134,20 @@ public class ImageActivity extends AppCompatActivity {
             public void run() {
                 imageView.setImageBitmap(bitmap);
                 mProgressBar.setProgress(i + 1);
-                mTextview.setText(getString(R.string.downloading, i+1));
-                mProgressBar.setVisibility(View.VISIBLE);
-                mTextview.setVisibility(View.VISIBLE);
+                if (i == 19) {
+                    mTextview.setText(R.string.download_complete);
+                    mTextview.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgressBar.setVisibility(View.INVISIBLE);
+                            mTextview.setVisibility(View.INVISIBLE);
+                        }
+                    }, 3000);
+                } else {
+                    mTextview.setText(getString(R.string.downloading, i + 1));
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    mTextview.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -150,34 +161,33 @@ public class ImageActivity extends AppCompatActivity {
         mGridView.setAdapter(new ImageAdapter(this, imgInfoList));
     }
 
-    public void resetDownload(){
+    public void resetDownload() {
         downloadCompleted = false;
         downloadedImages = 0;
         imgDownloadList.clear();
     }
 
-    public void addEffect(ImageView imageView){
+    public void addEffect(ImageView imageView) {
         imageView.setColorFilter(semiTransparentGrey, PorterDuff.Mode.SRC_ATOP);
         imageView.setBackgroundResource(R.drawable.bg_card_selected);
     }
 
-    public void removeEffect(ImageView imageView){
+    public void removeEffect(ImageView imageView) {
         imageView.clearColorFilter();
         imageView.setBackgroundResource(R.drawable.bg_card);
-        imageView.setPadding(15, 15, 15, 15);
     }
 
-    public void resetImages(){
+    public void resetImages() {
         mGridView = findViewById(R.id.grid_view);
         mImageAdapter = (ImageAdapter) mGridView.getAdapter();
         mImageAdapter.notifyDataSetChanged();
         selectedImgList.clear();
     }
 
-    public void startGame(List<Integer> selectedImgList){
+    public void startGame(List<Integer> selectedImgList) {
 
         Intent intent = new Intent(this, GameActivity.class);
-        for(int i = 0;i<selectedImgList.size(); i++){
+        for (int i = 0; i < selectedImgList.size(); i++) {
 
             Bitmap bm = imgDownloadList.get(Integer.valueOf(selectedImgList.get(i)));
             ByteArrayOutputStream stream = new ByteArrayOutputStream();

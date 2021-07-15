@@ -21,4 +21,5 @@
     </string>
     <string name="downloading">downloading %1$d of 20 images</string>
 <string name="leader1">%1$s \t\t\t\t\t\t %2$s</string>
+    <string name="download_complete">Download completed for 20 of 20 images!</string>
 </resources>
