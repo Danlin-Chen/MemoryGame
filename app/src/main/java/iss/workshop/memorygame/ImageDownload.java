@@ -63,7 +63,8 @@ public class ImageDownload {
 
         List<String> srcList = new ArrayList<String>();
         for(int i=0;i<tempSrcList.size();i++){
-            if(!srcList.contains(tempSrcList.get(i))){
+            String tempSRC=tempSrcList.get(i);
+            if(!srcList.contains(tempSRC) && tempSRC.contains("https://")){
                 srcList.add(tempSrcList.get(i));
             }
         }

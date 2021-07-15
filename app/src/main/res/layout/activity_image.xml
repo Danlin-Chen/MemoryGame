@@ -9,7 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp">
 
         <EditText
             android:id="@+id/inputURL"
@@ -25,6 +26,15 @@
             android:text="fetch" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/urlError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:textSize="15sp"
+        android:visibility="invisible"/>
+
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="fill_parent"
@@ -33,7 +43,7 @@
         android:numColumns="4"
         android:verticalSpacing="2dp"
         android:paddingLeft="30dp"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:paddingRight="30dp"
         android:gravity="center" />
 
