@@ -94,7 +94,6 @@ public class ImageActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         if (selectedImgList.size() == numberOfImages) {
-            mGridView.setAdapter(new ImageAdapter(this, imgDownloadList));
             resetImages();
         }
     }
@@ -200,8 +199,7 @@ public class ImageActivity extends AppCompatActivity {
 
     public void resetImages() {
         mGridView = findViewById(R.id.grid_view);
-        mImageAdapter = (ImageAdapter) mGridView.getAdapter();
-        mImageAdapter.notifyDataSetChanged();
+        mGridView.setAdapter(new ImageAdapter(this, imgDownloadList));
         selectedImgList.clear();
     }
 
