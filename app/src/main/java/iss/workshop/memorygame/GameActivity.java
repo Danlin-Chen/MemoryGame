@@ -7,6 +7,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -29,8 +32,8 @@ import java.util.List;
 public class GameActivity extends AppCompatActivity {
     ObjectAnimator animator1;
     ObjectAnimator animator2;
-    private Integer[] mbaseImages = new Integer[12];
-    private List<Integer> gameImages = new ArrayList<Integer>();
+    private Bitmap[] mbaseImages = new Bitmap[12];
+    private List<Bitmap> gameImages = new ArrayList<Bitmap>();
     private List<Integer> imagesFound = new ArrayList<Integer>();
     private int previousImage = -1;
     private int resultCount = 0;
@@ -38,6 +41,7 @@ public class GameActivity extends AppCompatActivity {
 
     TextView resultCountTextView;
     Chronometer gameChronometer;
+    Bitmap teamImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class GameActivity extends AppCompatActivity {
         gameChronometer = (Chronometer) findViewById(R.id.gameChronometer);
         gameChronometer.setBase(SystemClock.elapsedRealtime());
         gameChronometer.start();
+
+        teamImage = BitmapFactory.decodeResource(getResources(), R.drawable.team_image);
 
         initImages();
 
@@ -103,8 +109,9 @@ public class GameActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     ImageView prevView = (ImageView) gridView.getChildAt(previousImage);
-                                    flipCard(imageView,R.drawable.team_image);
-                                    flipCard(prevView,R.drawable.team_image);
+
+                                    flipCard(imageView, teamImage);
+                                    flipCard(prevView, teamImage);
                                     previousImage = -1;
                                     itemClickFlag = true;
                                 }
@@ -116,31 +123,28 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-
     protected void initImages(){
-        Arrays.fill(mbaseImages, R.drawable.team_image);
-        gameImages.add(R.drawable.img_1);
-        gameImages.add(R.drawable.img_1);
-        gameImages.add(R.drawable.img_2);
-        gameImages.add(R.drawable.img_2);
-        gameImages.add(R.drawable.img_3);
-        gameImages.add(R.drawable.img_3);
-        gameImages.add(R.drawable.img_4);
-        gameImages.add(R.drawable.img_4);
-        gameImages.add(R.drawable.img_5);
-        gameImages.add(R.drawable.img_5);
-        gameImages.add(R.drawable.img_6);
-        gameImages.add(R.drawable.img_6);
+        Arrays.fill(mbaseImages, teamImage);
+        //gameImages.add(R.drawable.img_1);
+        Intent intent = getIntent();
+
+        for(int i=0; i<6; i++){
+            byte[] imageByteArray = intent.getByteArrayExtra("img" + i);
+            Bitmap image = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+            gameImages.add(image);
+            gameImages.add(image);
+        }
+
         Collections.shuffle(gameImages);
     }
 
-    protected void flipCard(ImageView imageView,int drawable){
+    protected void flipCard(ImageView imageView,Bitmap image){
         animator1 = ObjectAnimator.ofFloat(imageView, "rotationY",  0,90);
         animator2 = ObjectAnimator.ofFloat(imageView, "rotationY",  270,360);
         animator1.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                imageView.setImageResource(drawable);
+                imageView.setImageBitmap(image);
             }
         });
         AnimatorSet bouncer = new AnimatorSet();

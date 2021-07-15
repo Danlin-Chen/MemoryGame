@@ -1,6 +1,7 @@
 package iss.workshop.memorygame;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,9 +14,9 @@ public class GamePlayImageAdapter extends BaseAdapter {
 
     private Context mContext;
 
-    private Integer[] mImageIds;
+    private Bitmap[] mImageIds;
 
-    public GamePlayImageAdapter(Context context, Integer[] ids){
+    public GamePlayImageAdapter(Context context, Bitmap[] ids){
         mContext = context;
         mImageIds = ids;
     }
@@ -51,7 +52,7 @@ public class GamePlayImageAdapter extends BaseAdapter {
         {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageResource(mImageIds[position]);
+        imageView.setImageBitmap(mImageIds[position]);
         return imageView;
     }
 
