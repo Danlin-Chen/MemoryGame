@@ -37,11 +37,13 @@
         android:clipToPadding="false"
         android:columnWidth="90dp"
         android:gravity="center"
-        android:horizontalSpacing="5dp"
         android:numColumns="3"
-        android:paddingTop="30dp"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" />
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:verticalSpacing="5dp"
+
+        android:stretchMode="columnWidth" />
 
 
 </LinearLayout>

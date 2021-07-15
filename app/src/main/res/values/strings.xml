@@ -18,5 +18,6 @@
         7. The timer will stops when all the cards are matched\n
         8. View your current and best timing\n
     </string>
+    <string name="downloading">downloading %1$d of 20 images</string>
 
 </resources>
