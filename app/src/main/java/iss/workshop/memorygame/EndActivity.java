@@ -19,7 +19,7 @@ public class EndActivity extends AppCompatActivity {
     private long best1, best2, best3;
     private String bName1, bName2, bName3, player;
     private TextView mScoreChart, mBestOne, mBestTwo, mBestThree;
-    private Button mHomeBtn;
+    private Button mPlayAgainBtn, mHomeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,11 @@ public class EndActivity extends AppCompatActivity {
 
         applauseSound();
         mScoreChart = findViewById(R.id.scoreline2);
-        mHomeBtn = findViewById(R.id.homeBtn);
+        mPlayAgainBtn = findViewById(R.id.playAgainBtn);
         mBestOne = findViewById(R.id.bestOne);
         mBestTwo = findViewById(R.id.bestTwo);
         mBestThree = findViewById(R.id.bestThree);
+        mHomeBtn = findViewById(R.id.homeBtn);
 
         Intent intent = getIntent();
 
@@ -122,10 +123,18 @@ public class EndActivity extends AppCompatActivity {
         }
 
 
+        mPlayAgainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EndActivity.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
         mHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EndActivity.this, MainActivity.class);
+                Intent intent = new Intent(EndActivity.this, ImageActivity.class);
                 startActivity(intent);
             }
         });

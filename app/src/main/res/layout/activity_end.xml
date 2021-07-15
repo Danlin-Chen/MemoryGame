@@ -70,7 +70,7 @@
         android:textSize="20sp"/>
 
     <Button
-        android:id="@+id/homeBtn"
+        android:id="@+id/playAgainBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -78,5 +78,14 @@
         android:textSize="15sp"
         android:layout_marginTop="10dp"
         android:background="@color/tiffany_700"/>
+    <Button
+        android:id="@+id/homeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/back_home"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:background="@color/purple_200"/>
 
 </LinearLayout>

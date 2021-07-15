@@ -4,6 +4,7 @@
     <string name="score2">You have used %1$s to complete the game.</string>
     <string name="leaderboard">Leaderboard: </string>
     <string name="back_to_main">Play Again</string>
+    <string name="back_home">Back to Main</string>
     <string name="enter_player_name">Enter your name...</string>
     <string name="play_now">Play Now</string>
     <string name="introTxt">GDipSA52 Team 3</string>
