@@ -50,7 +50,7 @@ public class ImageActivity extends AppCompatActivity {
         mGridView = findViewById(R.id.grid_view);
         mProgressBar = findViewById(R.id.progressBar);
         mTextview = findViewById(R.id.tv_downloading);
-        mErrolTextview=findViewById(R.id.urlError);
+        mErrolTextview = findViewById(R.id.urlError);
 
         setDefaultImage();
 
@@ -108,12 +108,12 @@ public class ImageActivity extends AppCompatActivity {
         public void run() {
 
             String inputUrl = mInputURLTxt.getText().toString();
-            if(!inputUrl.contains("https://"))
-                inputUrl="https://"+inputUrl;
+            if (!inputUrl.contains("https://"))
+                inputUrl = "https://" + inputUrl;
 
 
             String urlString = imageDownload.getUrlString(inputUrl);
-            if (urlString == null){
+            if (urlString == null) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -126,6 +126,16 @@ public class ImageActivity extends AppCompatActivity {
 
             resetDownload();
             List<String> srcList = imageDownload.imgUrlList(urlString);
+            if (srcList.size() < 20) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mErrolTextview.setText(R.string.no_enough_image);
+                        mErrolTextview.setVisibility(View.VISIBLE);
+                    }
+                });
+                return;
+            }
             for (int i = 0; i < 20; i++) {
                 Bitmap bitmap = imageDownload.downloadImage(srcList.get(i));
                 imgDownloadList.add(i, bitmap);
