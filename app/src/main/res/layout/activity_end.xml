@@ -17,13 +17,32 @@
         android:textColor="@color/black"
         android:textFontWeight="700"
         android:textSize="30sp"
+        android:layout_marginBottom="20dp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/scoreline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/score2"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/scoreline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+
     <TextView
         android:id="@+id/leaderBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/leaderboard"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:textSize="20sp"/>
 
     <TextView
@@ -31,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
+        android:layout_marginTop="5dp"
         android:textSize="20sp"/>
 
     <TextView
@@ -39,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:textSize="20sp"/>
 
     <TextView
@@ -46,6 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:textSize="20sp"/>
 
     <Button
@@ -55,6 +76,7 @@
         android:layout_gravity="center"
         android:text="@string/back_to_main"
         android:textSize="15sp"
+        android:layout_marginTop="10dp"
         android:background="@color/tiffany_700"/>
 
 </LinearLayout>

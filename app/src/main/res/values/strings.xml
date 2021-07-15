@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Memory Game</string>
     <string name="score">Congratulations</string>
-    <string name="score2">\nYou have used </string>
-    <string name="score3"> to complete the game.</string>
+    <string name="score2">You have used %1$s to complete the game.</string>
     <string name="leaderboard">Leaderboard: </string>
     <string name="back_to_main">Play Again</string>
     <string name="enter_player_name">Enter your name...</string>
@@ -21,5 +20,5 @@
         8. View your current and best timing\n
     </string>
     <string name="downloading">downloading %1$d of 20 images</string>
-
+<string name="leader1">%1$s \t\t\t\t\t\t %2$s</string>
 </resources>

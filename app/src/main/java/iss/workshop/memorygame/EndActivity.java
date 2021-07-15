@@ -25,7 +25,7 @@ public class EndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
 
-        mScoreChart = findViewById(R.id.scoreChart);
+        mScoreChart = findViewById(R.id.scoreline2);
         mHomeBtn = findViewById(R.id.homeBtn);
         mBestOne = findViewById(R.id.bestOne);
         mBestTwo = findViewById(R.id.bestTwo);
@@ -90,34 +90,33 @@ public class EndActivity extends AppCompatActivity {
             editor.commit();
         }
 
-        mScoreChart.setText(getString(R.string.score)+ getString(R.string.score2) + conversionOfTime(score) +
-                getString(R.string.score3));
+        mScoreChart.setText(getString(R.string.score2,conversionOfTime(score)));
 
         if(best1 == 0) {
-            mBestOne.setText(player + "\t " + conversionOfTime(score));
+            mBestOne.setText(getString(R.string.leader1,player, conversionOfTime(score)));
             editor.putString("bName1", player);
             editor.putLong("best1", score);
             editor.commit();
         }
         else if (best2 == 0) {
-            mBestOne.setText(bName1 + "\t " + conversionOfTime(best1));
-            mBestTwo.setText(player + "\t " + conversionOfTime(score));
+            mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
+            mBestTwo.setText(getString(R.string.leader1,player,conversionOfTime(score)));
             editor.putString("bName2", player);
             editor.putLong("best2", score);
             editor.commit();
         }
         else if (best3 == 0) {
-            mBestOne.setText(bName1 + "\t " + conversionOfTime(best1));
-            mBestTwo.setText(bName2 + "\t " + conversionOfTime(best2));
-            mBestThree.setText(player + "\t " + conversionOfTime(score));
+            mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
+            mBestTwo.setText(getString(R.string.leader1,bName2,conversionOfTime(best2)));
+            mBestThree.setText(getString(R.string.leader1,player,conversionOfTime(score)));
             editor.putString("bName3", player);
             editor.putLong("best3", score);
             editor.commit();
         }
         else {
-            mBestOne.setText(bName1 + "\t " + conversionOfTime(best1));
-            mBestTwo.setText(bName2 + "\t " + conversionOfTime(best2));
-            mBestThree.setText(bName3 + "\t " + conversionOfTime(best3));
+            mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
+            mBestTwo.setText(getString(R.string.leader1,bName2,conversionOfTime(best2)));
+            mBestThree.setText(getString(R.string.leader1,bName3,conversionOfTime(best3)));
         }
 
 
@@ -132,7 +131,7 @@ public class EndActivity extends AppCompatActivity {
     protected String conversionOfTime(long gamePlayTimeTaken){
         long minutes = TimeUnit.MILLISECONDS.toMinutes(gamePlayTimeTaken);
         long seconds = (TimeUnit.MILLISECONDS.toSeconds(gamePlayTimeTaken) % 60);
-        String time = minutes +" : "+ seconds;
+        String time = " " + minutes +":"+ seconds + " ";
         return time;
     }
 }
