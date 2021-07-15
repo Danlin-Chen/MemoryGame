@@ -114,6 +114,7 @@ public class ImageActivity extends AppCompatActivity {
             for (int i = 0; i < 20; i++) {
                 Bitmap bitmap = imageDownload.downloadImage(srcList.get(i));
                 imgDownloadList.add(i, bitmap);
+                downloadedImages = i + 1;
                 updateGridView(i, bitmap);
 
                 if (interrupted()) {
@@ -134,7 +135,6 @@ public class ImageActivity extends AppCompatActivity {
                 imageView.setImageBitmap(bitmap);
                 mProgressBar.setProgress(i + 1);
                 mTextview.setText(getString(R.string.downloading, i+1));
-                downloadedImages = i + 1;
                 mProgressBar.setVisibility(View.VISIBLE);
                 mTextview.setVisibility(View.VISIBLE);
             }
