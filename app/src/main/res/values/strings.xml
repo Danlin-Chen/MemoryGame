@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Memory Game</string>
     <string name="score">Congratulations</string>
+    <string name="score2">\nYou have used </string>
+    <string name="score3"> to complete the game.</string>
     <string name="leaderboard">Leaderboard: </string>
     <string name="back_to_main">Play Again</string>
     <string name="enter_player_name">Enter your name...</string>

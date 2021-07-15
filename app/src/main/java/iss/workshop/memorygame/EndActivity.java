@@ -90,34 +90,34 @@ public class EndActivity extends AppCompatActivity {
             editor.commit();
         }
 
-        mScoreChart.setText(getString(R.string.score)+ " You used " + conversionOfTime(score) +
-                " to complete the game.");
+        mScoreChart.setText(getString(R.string.score)+ getString(R.string.score2) + conversionOfTime(score) +
+                getString(R.string.score3));
 
         if(best1 == 0) {
-            mBestOne.setText(player + " " + score);
+            mBestOne.setText(player + "\t " + conversionOfTime(score));
             editor.putString("bName1", player);
             editor.putLong("best1", score);
             editor.commit();
         }
         else if (best2 == 0) {
-            mBestOne.setText(bName1 + " " + best1);
-            mBestTwo.setText(player + " " + score);
+            mBestOne.setText(bName1 + "\t " + conversionOfTime(best1));
+            mBestTwo.setText(player + "\t " + conversionOfTime(score));
             editor.putString("bName2", player);
             editor.putLong("best2", score);
             editor.commit();
         }
         else if (best3 == 0) {
-            mBestOne.setText(bName1 + " " + best1);
-            mBestTwo.setText(bName2 + " " + best2);
-            mBestThree.setText(player + " " + score);
+            mBestOne.setText(bName1 + "\t " + conversionOfTime(best1));
+            mBestTwo.setText(bName2 + "\t " + conversionOfTime(best2));
+            mBestThree.setText(player + "\t " + conversionOfTime(score));
             editor.putString("bName3", player);
             editor.putLong("best3", score);
             editor.commit();
         }
         else {
-            mBestOne.setText(bName1 + " " + best1);
-            mBestTwo.setText(bName2 + " " + best2);
-            mBestThree.setText(bName3 + " " + best3);
+            mBestOne.setText(bName1 + "\t " + conversionOfTime(best1));
+            mBestTwo.setText(bName2 + "\t " + conversionOfTime(best2));
+            mBestThree.setText(bName3 + "\t " + conversionOfTime(best3));
         }
 
 
