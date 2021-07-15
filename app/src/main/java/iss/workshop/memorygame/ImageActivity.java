@@ -37,8 +37,6 @@ public class ImageActivity extends AppCompatActivity {
     private final int semiTransparentGrey = Color.argb(155, 185, 185, 185);
     private final int numberOfImages = 6;
     private boolean downloadCompleted = false;
-    private int downloadedImages;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +70,7 @@ public class ImageActivity extends AppCompatActivity {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i >= downloadedImages || !downloadCompleted) {
+                if (!downloadCompleted) {
                     return;
                 }
                 if (selectedImgList.size() < numberOfImages) {
@@ -139,7 +137,6 @@ public class ImageActivity extends AppCompatActivity {
             for (int i = 0; i < 20; i++) {
                 Bitmap bitmap = imageDownload.downloadImage(srcList.get(i));
                 imgDownloadList.add(i, bitmap);
-                downloadedImages = i + 1;
                 updateGridView(i, bitmap);
 
                 if (interrupted()) {
@@ -188,7 +185,6 @@ public class ImageActivity extends AppCompatActivity {
 
     public void resetDownload() {
         downloadCompleted = false;
-        downloadedImages = 0;
         imgDownloadList.clear();
     }
 
@@ -214,7 +210,7 @@ public class ImageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameActivity.class);
         for (int i = 0; i < selectedImgList.size(); i++) {
 
-            Bitmap bm = imgDownloadList.get(Integer.valueOf(selectedImgList.get(i)));
+            Bitmap bm = imgDownloadList.get(selectedImgList.get(i));
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] byteArray = stream.toByteArray();
