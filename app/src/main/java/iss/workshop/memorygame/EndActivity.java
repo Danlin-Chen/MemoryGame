@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.concurrent.TimeUnit;
+
 public class EndActivity extends AppCompatActivity {
 
-    private int score;
-    private int best1, best2, best3;
+    private long score;
+    private long best1, best2, best3;
     private String bName1, bName2, bName3, player;
     private TextView mScoreChart, mBestOne, mBestTwo, mBestThree;
     private Button mHomeBtn;
@@ -31,14 +33,14 @@ public class EndActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        score = intent.getIntExtra("score", 0);
+        score = intent.getLongExtra("gamePlayTimeTaken", 0);
 
         SharedPreferences pref = getSharedPreferences("players_information", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
-        best1 = pref.getInt("best1", 0);
-        best2 = pref.getInt("best2", 0);
-        best3 = pref.getInt("best3", 0);
+        best1 = pref.getLong("best1", 0);
+        best2 = pref.getLong("best2", 0);
+        best3 = pref.getLong("best3", 0);
 
         bName1 = pref.getString("bName1", null);
         bName2 = pref.getString("bName2", null);
@@ -46,9 +48,9 @@ public class EndActivity extends AppCompatActivity {
         player = pref.getString("player", null);
 
         if(score < best1) {
-            int temp = best1;
+            long temp = best1;
             best1 = score;
-            int temp2 = best2;
+            long temp2 = best2;
             best2 = temp;
             best3 = temp2;
 
@@ -58,16 +60,16 @@ public class EndActivity extends AppCompatActivity {
             bName2 = sTemp;
             bName3 = sTemp2;
 
-            editor.putInt("best3", best3);
-            editor.putInt("best2", best2);
-            editor.putInt("best1", best1);
+            editor.putLong("best3", best3);
+            editor.putLong("best2", best2);
+            editor.putLong("best1", best1);
             editor.putString("bName1", bName1);
             editor.putString("bName2", bName2);
             editor.putString("bName3", bName3);
             editor.commit();
         }
         else if(score < best2) {
-            int temp = best2;
+            Long temp = best2;
             best2 = score;
             best3 = best2;
 
@@ -75,32 +77,33 @@ public class EndActivity extends AppCompatActivity {
             bName2 = player;
             bName3 = sTemp;
 
-            editor.putInt("best3", best3);
-            editor.putInt("best2", best2);
+            editor.putLong("best3", best3);
+            editor.putLong("best2", best2);
             editor.putString("bName2", bName2);
             editor.putString("bName3", bName3);
             editor.commit();
         }
         else if(score < best3) {
             best3 = score;
-            editor.putInt("best3", best3);
+            editor.putLong("best3", best3);
             editor.putString("bName3", player);
             editor.commit();
         }
 
-        mScoreChart.setText("Your score: " + score);
+        mScoreChart.setText(getString(R.string.score)+ " You used " + conversionOfTime(score) +
+                " to complete the game.");
 
         if(best1 == 0) {
             mBestOne.setText(player + " " + score);
             editor.putString("bName1", player);
-            editor.putInt("best1", score);
+            editor.putLong("best1", score);
             editor.commit();
         }
         else if (best2 == 0) {
             mBestOne.setText(bName1 + " " + best1);
             mBestTwo.setText(player + " " + score);
             editor.putString("bName2", player);
-            editor.putInt("best2", score);
+            editor.putLong("best2", score);
             editor.commit();
         }
         else if (best3 == 0) {
@@ -108,7 +111,7 @@ public class EndActivity extends AppCompatActivity {
             mBestTwo.setText(bName2 + " " + best2);
             mBestThree.setText(player + " " + score);
             editor.putString("bName3", player);
-            editor.putInt("best3", score);
+            editor.putLong("best3", score);
             editor.commit();
         }
         else {
@@ -125,5 +128,11 @@ public class EndActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    protected String conversionOfTime(long gamePlayTimeTaken){
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(gamePlayTimeTaken);
+        long seconds = (TimeUnit.MILLISECONDS.toSeconds(gamePlayTimeTaken) % 60);
+        String time = minutes +" : "+ seconds;
+        return time;
     }
 }
