@@ -1,9 +1,13 @@
 package iss.workshop.memorygame;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -13,18 +17,26 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageActivity extends AppCompatActivity {
 
     private List<Bitmap> imgInfoList = new ArrayList<>();
+    private List<Bitmap> imgDownloadList = new ArrayList<>();
+    private List<Integer> selectedImgList = new ArrayList<>();
     private GridView mGridView;
     private ProgressBar mProgressBar;
     private TextView mTextview;
-    EditText mInputURLTxt;
-    Button mFetchBtn;
-    Thread bkgdThread;
+    private EditText mInputURLTxt;
+    private Button mFetchBtn;
+    private Thread bkgdThread;
+    private ImageAdapter mImageAdapter;
+    private final int semiTransparentGrey = Color.argb(155, 185, 185, 185);
+    private final int numberOfImages = 6;
+    private boolean downloadCompleted = false;
+    private int downloadedImages;
 
 
     @Override
@@ -53,6 +65,37 @@ public class ImageActivity extends AppCompatActivity {
                 bkgdThread.start();
             }
         });
+
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i>=downloadedImages || !downloadCompleted){
+                    return;
+                }
+                if (selectedImgList.size()<numberOfImages) {
+                    ImageView imageView = (ImageView) view;
+                    if (!selectedImgList.contains(i)){
+                        addEffect(imageView);
+                        selectedImgList.add(i);
+                        if (selectedImgList.size() == numberOfImages) {
+                            startGame(selectedImgList);
+                        }
+                    }else if (selectedImgList.contains(i)){
+                        removeEffect(imageView);
+                        selectedImgList.remove(Integer.valueOf(i));
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (selectedImgList.size()==numberOfImages){
+            mGridView.setAdapter(new ImageAdapter(this, imgDownloadList));
+            resetImages();
+        }
     }
 
     class MyThread extends Thread {
@@ -66,9 +109,11 @@ public class ImageActivity extends AppCompatActivity {
             if (urlString == null)
                 return;
 
+            resetDownload();
             List<String> srcList = imageDownload.imgUrlList(urlString);
             for (int i = 0; i < 20; i++) {
                 Bitmap bitmap = imageDownload.downloadImage(srcList.get(i));
+                imgDownloadList.add(i, bitmap);
                 updateGridView(i, bitmap);
 
                 if (interrupted()) {
@@ -76,6 +121,7 @@ public class ImageActivity extends AppCompatActivity {
                     return;
                 }
             }
+            downloadCompleted = true;
         }
     }
 
@@ -88,6 +134,7 @@ public class ImageActivity extends AppCompatActivity {
                 imageView.setImageBitmap(bitmap);
                 mProgressBar.setProgress(i + 1);
                 mTextview.setText(getString(R.string.downloading, i+1));
+                downloadedImages = i + 1;
                 mProgressBar.setVisibility(View.VISIBLE);
                 mTextview.setVisibility(View.VISIBLE);
             }
@@ -95,11 +142,51 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void setDefaultImage() {
+        imgInfoList.clear();
         Bitmap defaultBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.team_image);
         for (int i = 0; i < 20; i++) {
             imgInfoList.add(defaultBitmap);
         }
         mGridView.setAdapter(new ImageAdapter(this, imgInfoList));
+    }
+
+    public void resetDownload(){
+        downloadCompleted = false;
+        downloadedImages = 0;
+        imgDownloadList.clear();
+    }
+
+    public void addEffect(ImageView imageView){
+        imageView.setColorFilter(semiTransparentGrey, PorterDuff.Mode.SRC_ATOP);
+        imageView.setBackgroundResource(R.drawable.bg_card_selected);
+    }
+
+    public void removeEffect(ImageView imageView){
+        imageView.clearColorFilter();
+        imageView.setBackgroundResource(R.drawable.bg_card);
+        imageView.setPadding(15, 15, 15, 15);
+    }
+
+    public void resetImages(){
+        mGridView = findViewById(R.id.grid_view);
+        mImageAdapter = (ImageAdapter) mGridView.getAdapter();
+        mImageAdapter.notifyDataSetChanged();
+        selectedImgList.clear();
+    }
+
+    public void startGame(List<Integer> selectedImgList){
+
+        Intent intent = new Intent(this, GameActivity.class);
+        for(int i = 0;i<selectedImgList.size(); i++){
+
+            Bitmap bm = imgDownloadList.get(Integer.valueOf(selectedImgList.get(i)));
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            intent.putExtra("img" + i, byteArray);
+        }
+        startActivity(intent);
     }
 
 
