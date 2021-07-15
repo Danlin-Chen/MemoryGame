@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class EndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
 
+        applauseSound();
         mScoreChart = findViewById(R.id.scoreline2);
         mHomeBtn = findViewById(R.id.homeBtn);
         mBestOne = findViewById(R.id.bestOne);
@@ -133,5 +135,10 @@ public class EndActivity extends AppCompatActivity {
         long seconds = (TimeUnit.MILLISECONDS.toSeconds(gamePlayTimeTaken) % 60);
         String time = " " + minutes +":"+ seconds + " ";
         return time;
+    }
+    protected void applauseSound(){
+        MediaPlayer mMediaPlayer;
+        mMediaPlayer=MediaPlayer.create(this, R.raw.crowdapplause);
+        mMediaPlayer.start();
     }
 }
