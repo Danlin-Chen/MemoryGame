@@ -95,8 +95,13 @@ public class GameActivity extends AppCompatActivity {
                                 long gamePlayTimeTaken = SystemClock.elapsedRealtime() - gameChronometer.getBase();
                                 gameChronometer.stop();
 
-                                mEndActivityIntent.putExtra("gamePlayTimeTaken", gamePlayTimeTaken);
-                                startActivity(mEndActivityIntent);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mEndActivityIntent.putExtra("gamePlayTimeTaken", gamePlayTimeTaken);
+                                        startActivity(mEndActivityIntent);
+                                    }
+                                }, 1000);
 
                             }
 
@@ -125,7 +130,6 @@ public class GameActivity extends AppCompatActivity {
 
     protected void initImages(){
         Arrays.fill(mbaseImages, teamImage);
-        //gameImages.add(R.drawable.img_1);
         Intent intent = getIntent();
 
         for(int i=0; i<6; i++){
@@ -134,7 +138,7 @@ public class GameActivity extends AppCompatActivity {
             gameImages.add(image);
             gameImages.add(image);
         }
-
+        
         Collections.shuffle(gameImages);
     }
 
