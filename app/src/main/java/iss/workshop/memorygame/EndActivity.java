@@ -126,7 +126,7 @@ public class EndActivity extends AppCompatActivity {
         mPlayAgainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EndActivity.this, GameActivity.class);
+                Intent intent = new Intent(EndActivity.this, ImageActivity.class);
                 startActivity(intent);
             }
         });
@@ -134,7 +134,7 @@ public class EndActivity extends AppCompatActivity {
         mHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EndActivity.this, ImageActivity.class);
+                Intent intent = new Intent(EndActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
