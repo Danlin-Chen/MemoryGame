@@ -85,7 +85,7 @@ public class EndActivity extends AppCompatActivity {
             editor.putString("bName3", bName3);
             editor.commit();
         }
-        else if(score < best3) {
+        else if(score < best3 && score != 0) {
             best3 = score;
             editor.putLong("best3", best3);
             editor.putString("bName3", player);
