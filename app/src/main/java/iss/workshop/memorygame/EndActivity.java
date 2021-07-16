@@ -163,4 +163,10 @@ public class EndActivity extends AppCompatActivity {
         mMediaPlayer=MediaPlayer.create(this, R.raw.crowdapplause);
         mMediaPlayer.start();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EndActivity.this, ImageActivity.class);
+        startActivity(intent);
+    }
 }
