@@ -110,7 +110,7 @@ public class ImageActivity extends AppCompatActivity {
             if (!inputUrl.contains("https://"))
                 inputUrl = "https://" + inputUrl;
 
-
+            resetDownload();
             String urlString = imageDownload.getUrlString(inputUrl);
             if (urlString == null) {
                 runOnUiThread(new Runnable() {
@@ -122,7 +122,7 @@ public class ImageActivity extends AppCompatActivity {
                 });
                 return;
             }
-            resetDownload();
+
             List<String> srcList = imageDownload.imgUrlList(urlString);
             if (srcList.size() < 20) {
                 runOnUiThread(new Runnable() {
@@ -134,14 +134,20 @@ public class ImageActivity extends AppCompatActivity {
                 });
                 return;
             }
-            for (int i = 0; i < 20; i++) {
-                Bitmap bitmap = imageDownload.downloadImage(srcList.get(i));
-                imgDownloadList.add(i, bitmap);
-                updateGridView(i, bitmap);
 
+            for (int i = 0; i < 20; i++) {
                 if (interrupted()) {
                     runOnUiThread(ImageActivity.this::setDefaultImage);
                     return;
+                }
+                try{
+                    Thread.sleep(300);
+                    Bitmap bitmap = imageDownload.downloadImage(srcList.get(i));
+                    if (imgDownloadList.size()>=i)
+                        imgDownloadList.add(i, bitmap);
+                    updateGridView(i, bitmap);
+                }catch(InterruptedException e){
+                    Thread.currentThread().interrupt();
                 }
             }
             downloadCompleted = true;
@@ -149,26 +155,30 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void updateGridView(int i, Bitmap bitmap) {
-        ImageView imageView = (ImageView) mGridView.getChildAt(i);
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                imageView.setImageBitmap(bitmap);
-                mProgressBar.setProgress(i + 1);
-                if (i == 19) {
-                    mTextview.setText(R.string.download_complete);
-                    mTextview.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgressBar.setVisibility(View.INVISIBLE);
-                            mTextview.setVisibility(View.INVISIBLE);
-                        }
-                    }, 3000);
-                } else {
-                    mTextview.setText(getString(R.string.downloading, i + 1));
-                    mProgressBar.setVisibility(View.VISIBLE);
-                    mTextview.setVisibility(View.VISIBLE);
+                try{
+                    ImageView imageView = (ImageView) mGridView.getChildAt(i);
+                    imageView.setImageBitmap(bitmap);
+                    mProgressBar.setProgress(i + 1);
+                    if (i == 19) {
+                        mTextview.setText(R.string.download_complete);
+                        mTextview.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mProgressBar.setVisibility(View.INVISIBLE);
+                                mTextview.setVisibility(View.INVISIBLE);
+                            }
+                        }, 1000);
+                    } else {
+                        mTextview.setText(getString(R.string.downloading, i + 1));
+                        mProgressBar.setVisibility(View.VISIBLE);
+                        mTextview.setVisibility(View.VISIBLE);
+                    }
+                }catch(NullPointerException e){
+                    return;
                 }
             }
         });
@@ -186,6 +196,7 @@ public class ImageActivity extends AppCompatActivity {
     public void resetDownload() {
         downloadCompleted = false;
         imgDownloadList.clear();
+        selectedImgList.clear();
     }
 
     public void addEffect(ImageView imageView) {
