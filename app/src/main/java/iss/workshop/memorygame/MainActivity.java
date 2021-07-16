@@ -2,11 +2,13 @@ package iss.workshop.memorygame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!isEmpty(mPlayerName)) {
+
+                    hideKeyboard();
 
                     SharedPreferences pref = getSharedPreferences("players_information", MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
@@ -60,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             return true;
+        }
+    }
+
+    public void hideKeyboard() {
+        try {
+            // use application level context to avoid unnecessary leaks.
+            InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert inputManager != null;
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

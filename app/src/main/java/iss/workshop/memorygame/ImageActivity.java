@@ -1,5 +1,6 @@
 package iss.workshop.memorygame;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +58,7 @@ public class ImageActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                hideKeyboard();
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mTextview.setVisibility(View.INVISIBLE);
                 mErrolTextview.setVisibility(View.INVISIBLE);
@@ -218,5 +221,15 @@ public class ImageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void hideKeyboard() {
+        try {
+            // use application level context to avoid unnecessary leaks.
+            InputMethodManager inputManager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert inputManager != null;
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
