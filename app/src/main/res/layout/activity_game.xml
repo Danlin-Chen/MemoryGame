@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="100dp"
             android:text="0 of 6 matches"
             android:textSize="20sp" />
@@ -23,7 +23,6 @@
             android:id="@+id/gameChronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:textSize="20sp" />
 
 
@@ -33,7 +32,7 @@
     <GridView
         android:id="@+id/gameImageGridView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:columnWidth="90dp"
         android:gravity="center"
