@@ -58,7 +58,22 @@ public class EndActivity extends AppCompatActivity {
         bName3 = pref.getString("bName3", null);
         player = pref.getString("player", null);
 
-        mScoreChart.setText(getString(R.string.score2_vertical,conversionOfTime(score)));
+        mPlayAgainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EndActivity.this, ImageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EndActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         if (onDestroy){
             mScoreChart.setText(getString(R.string.score2_vertical, conversionOfTime(score)));
             if (bName1 !=null){
@@ -154,22 +169,6 @@ public class EndActivity extends AppCompatActivity {
                     mBestThree.setText(getString(R.string.leader1, bName3, conversionOfTime(best3)));
                 }
             }
-
-        mPlayAgainBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EndActivity.this, ImageActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        mHomeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EndActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
     protected String conversionOfTime(long gamePlayTimeTaken){
         long minutes = TimeUnit.MILLISECONDS.toMinutes(gamePlayTimeTaken);
