@@ -64,7 +64,6 @@ public class ImageActivity extends AppCompatActivity {
                 if (bkgdThread != null)
                     bkgdThread.interrupt();
                 setDefaultImage();
-                resetDownload();
                 bkgdThread = new MyThread();
                 bkgdThread.start();
             }
@@ -123,7 +122,7 @@ public class ImageActivity extends AppCompatActivity {
                 });
                 return;
             }
-
+            resetDownload();
             List<String> srcList = imageDownload.imgUrlList(urlString);
             if (srcList.size() < 20) {
                 runOnUiThread(new Runnable() {

@@ -40,16 +40,16 @@ public class ImageAdapter extends BaseAdapter {
 
         if (convertView == null) {
             imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(217, 266));
+            imageView.setLayoutParams(new GridView.LayoutParams(210, 257));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(15, 15, 15, 15);
+            imageView.setPadding(10, 10, 10, 10);
             imageView.setCropToPadding(true);
             imageView.setBackgroundResource(R.drawable.bg_card);
         }
         else
         {
             imageView = (ImageView) convertView;
-            imageView.setPadding(15, 15, 15, 15);
+            imageView.setPadding(10, 10, 10, 10);
             imageView.setBackgroundResource(R.drawable.bg_card);
             imageView.clearColorFilter();
         }

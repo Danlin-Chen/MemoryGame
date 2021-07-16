@@ -96,10 +96,11 @@ public class ImageDownload {
         }
         return null;
     }
+
     public static Bitmap scaleImage(Bitmap bm){
 
-        int screenWidth = 140;
-        int screenHeight = 175;
+        int screenWidth = 200;
+        int screenHeight = 250;
 
         int width = bm.getWidth();
         int height = bm.getHeight();

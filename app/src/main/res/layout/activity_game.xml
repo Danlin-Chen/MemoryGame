@@ -12,10 +12,10 @@
 
         <TextView
             android:id="@+id/txtGamePlayResult"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="100dp"
+            android:layout_marginLeft="20dp"
             android:text="0 of 6 matches"
             android:textSize="20sp" />
 
@@ -23,6 +23,7 @@
             android:id="@+id/gameChronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:textSize="20sp" />
 
 
@@ -34,14 +35,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:columnWidth="90dp"
         android:gravity="center"
         android:numColumns="3"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
         android:verticalSpacing="5dp"
-
         android:stretchMode="columnWidth" />
 
 

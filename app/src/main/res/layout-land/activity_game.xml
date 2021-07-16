@@ -12,11 +12,11 @@
 
         <TextView
             android:id="@+id/txtGamePlayResult"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="100dp"
             android:text="0 of 6 matches"
             android:textSize="20sp" />
 
@@ -24,22 +24,22 @@
             android:id="@+id/gameChronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="5dp"
             android:textSize="20sp" />
     </LinearLayout>
     <GridView
         android:id="@+id/gameImageGridView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clipToPadding="true"
-        android:columnWidth="20dp"
-        android:rowHeight="20dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:gravity="center"
         android:numColumns="6"
-        android:paddingTop="2dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:verticalSpacing="1dp"
+        android:paddingTop="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="20dp"
+        android:verticalSpacing="5dp"
         android:stretchMode="columnWidth" />
 
 
