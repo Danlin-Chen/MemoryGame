@@ -74,6 +74,8 @@ public class EndActivity extends AppCompatActivity {
             }
         });
 
+        mScoreChart.setText(getString(R.string.score2_vertical, conversionOfTime(score)));
+        
         if (onDestroy){
             mScoreChart.setText(getString(R.string.score2_vertical, conversionOfTime(score)));
             if (bName1 !=null){
