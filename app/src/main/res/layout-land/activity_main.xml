@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/introTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/introTxt"
+        android:textSize="20sp"
+        android:gravity="start|center"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingStart="20dp"
+        android:shadowColor="#808080"
+        android:shadowRadius="2"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:textStyle="italic|bold"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_weight="1">
+
+    <ImageView
+        android:id="@+id/teamImage"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:background="@drawable/team_image"
+        android:layout_gravity="top|center"
+        android:layout_margin="10dp"
+        app:cornerRadius="12dp"
+        android:layout_marginBottom="20dp" />
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:layout_weight="2">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/playerName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="16sp"
+            android:hint="@string/nameTxt"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:inputType="text"
+            android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNM
+            qwertzuiopasdfghjklyxcvbnm_-"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+    android:id="@+id/submitBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="@string/play_now"/>
+
+    <TextView
+        android:id="@+id/howToPlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/howToPlay"
+        android:textSize="14sp"
+        android:layout_gravity="bottom"
+        android:padding="5dp"
+        android:textColor="@color/black"/>
+   </LinearLayout>
+</LinearLayout>
+</LinearLayout>

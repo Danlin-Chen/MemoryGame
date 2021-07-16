@@ -13,11 +13,13 @@
         android:theme="@style/Theme.MemoryGame">
         <activity
             android:name=".ImageActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+<!--            android:configChanges="keyboardHidden|orientation"-->
+<!--            android:windowSoftInputMode="adjustNothing" -->
+
         <activity android:name=".EndActivity" />
-        <activity android:name=".GameActivity" />
+        <activity android:name=".GameActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

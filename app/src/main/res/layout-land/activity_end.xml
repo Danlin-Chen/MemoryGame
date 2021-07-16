@@ -11,9 +11,10 @@
         android:id="@+id/scoreChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="20dp"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/score"
         android:textColor="@color/black"
         android:textFontWeight="700"
@@ -24,33 +25,25 @@
         android:id="@+id/scoreline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:text="@string/score2_vertical"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/scoreline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="top|center"
+        android:text="@string/score2"
+        android:layout_marginStart="10dp"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/leaderBoard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="12dp"
         android:text="@string/leaderboard"
         android:textAllCaps="true"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="400dp"
+        android:layout_height="120dp"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -60,9 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="5dp"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textColor="@color/blue"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/bestTwo"
@@ -70,9 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="5dp"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textColor="@color/blue"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/bestThree"
@@ -80,14 +73,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="5dp"
-            android:padding="10dp"
+            android:padding="5dp"
             android:textColor="@color/blue"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:orientation="horizontal">
 
         <Button

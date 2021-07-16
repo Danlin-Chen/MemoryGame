@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Memory Game</string>
     <string name="score">Congratulations</string>
     <string name="score2">You have used %1$s to complete the game.</string>
+    <string name="score2_vertical">You have used %1$s to complete the game.</string>
     <string name="leaderboard">Leaderboard: </string>
     <string name="back_to_main">Play Again</string>
     <string name="back_home">Back to Main</string>

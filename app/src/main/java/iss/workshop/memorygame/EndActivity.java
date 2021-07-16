@@ -97,7 +97,7 @@ public class EndActivity extends AppCompatActivity {
             updatedFlag = true;
         }
 
-        mScoreChart.setText(getString(R.string.score2,conversionOfTime(score)));
+        mScoreChart.setText(getString(R.string.score2_vertical,conversionOfTime(score)));
 
         if(best1 == 0 && updatedFlag == false) {
             mBestOne.setText(getString(R.string.leader1,player, conversionOfTime(score)));
