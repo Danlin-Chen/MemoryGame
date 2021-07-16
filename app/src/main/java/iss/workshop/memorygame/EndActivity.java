@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +28,11 @@ public class EndActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
+
+        boolean onDestroy = false;
+        if (savedInstanceState !=null){
+            onDestroy = savedInstanceState.getBoolean("onDestroy");
+        }
 
         applauseSound();
         mScoreChart = findViewById(R.id.scoreline2);
@@ -52,22 +59,19 @@ public class EndActivity extends AppCompatActivity {
         player = pref.getString("player", null);
 
         mScoreChart.setText(getString(R.string.score2_vertical,conversionOfTime(score)));
-
-        if(savedInstanceState!=null){
-
-            if(bName1!=null){
-                mBestOne.setText(getString(R.string.leader1, bName1, conversionOfTime(best1)));
+        if (onDestroy){
+            mScoreChart.setText(getString(R.string.score2_vertical, conversionOfTime(score)));
+            if (bName1 !=null){
+                mBestOne.setText(getString(R.string.leader1,bName1, conversionOfTime(best1)));
             }
-
-            if(bName2!=null){
-                mBestTwo.setText(getString(R.string.leader1, bName2, conversionOfTime(best2)));
+            if (bName2 !=null){
+                mBestTwo.setText(getString(R.string.leader1,bName2, conversionOfTime(best2)));
             }
-
-            if(bName3!=null){
-                mBestThree.setText(getString(R.string.leader1, bName3, conversionOfTime(best3)));
+            if (bName3 !=null){
+                mBestThree.setText(getString(R.string.leader1,bName3, conversionOfTime(best3)));
             }
-
-        }else{
+            return;
+        }
 
             if(score < best1) {
                 long temp = best1;
@@ -150,7 +154,6 @@ public class EndActivity extends AppCompatActivity {
                     mBestThree.setText(getString(R.string.leader1, bName3, conversionOfTime(best3)));
                 }
             }
-        }
 
         mPlayAgainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,5 +187,11 @@ public class EndActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(EndActivity.this, ImageActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("onDestroy", true);
     }
 }
