@@ -20,6 +20,7 @@ public class EndActivity extends AppCompatActivity {
     private String bName1, bName2, bName3, player;
     private TextView mScoreChart, mBestOne, mBestTwo, mBestThree;
     private Button mPlayAgainBtn, mHomeBtn;
+    private boolean updatedFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +71,12 @@ public class EndActivity extends AppCompatActivity {
             editor.putString("bName2", bName2);
             editor.putString("bName3", bName3);
             editor.commit();
+            updatedFlag = true;
         }
         else if(score < best2) {
             Long temp = best2;
             best2 = score;
-            best3 = best2;
+            best3 = temp;
 
             String sTemp = bName2;
             bName2 = player;
@@ -85,30 +87,32 @@ public class EndActivity extends AppCompatActivity {
             editor.putString("bName2", bName2);
             editor.putString("bName3", bName3);
             editor.commit();
+            updatedFlag = true;
         }
-        else if(score < best3 && score != 0) {
+        else if(score < best3) {
             best3 = score;
             editor.putLong("best3", best3);
             editor.putString("bName3", player);
             editor.commit();
+            updatedFlag = true;
         }
 
         mScoreChart.setText(getString(R.string.score2,conversionOfTime(score)));
 
-        if(best1 == 0) {
+        if(best1 == 0 && updatedFlag == false) {
             mBestOne.setText(getString(R.string.leader1,player, conversionOfTime(score)));
             editor.putString("bName1", player);
             editor.putLong("best1", score);
             editor.commit();
         }
-        else if (best2 == 0) {
+        else if (best2 == 0 && updatedFlag == false) {
             mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
             mBestTwo.setText(getString(R.string.leader1,player,conversionOfTime(score)));
             editor.putString("bName2", player);
             editor.putLong("best2", score);
             editor.commit();
         }
-        else if (best3 == 0) {
+        else if (best3 == 0 && updatedFlag == false) {
             mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
             mBestTwo.setText(getString(R.string.leader1,bName2,conversionOfTime(best2)));
             mBestThree.setText(getString(R.string.leader1,player,conversionOfTime(score)));
@@ -117,9 +121,18 @@ public class EndActivity extends AppCompatActivity {
             editor.commit();
         }
         else {
-            mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
-            mBestTwo.setText(getString(R.string.leader1,bName2,conversionOfTime(best2)));
-            mBestThree.setText(getString(R.string.leader1,bName3,conversionOfTime(best3)));
+            if(best3 == 0) {
+                mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
+                mBestTwo.setText(getString(R.string.leader1,bName2,conversionOfTime(best2)));
+            }
+            else if(best2 == 0 && best3 == 0) {
+                mBestOne.setText(getString(R.string.leader1,bName1,conversionOfTime(best1)));
+            }
+            else {
+                mBestOne.setText(getString(R.string.leader1, bName1, conversionOfTime(best1)));
+                mBestTwo.setText(getString(R.string.leader1, bName2, conversionOfTime(best2)));
+                mBestThree.setText(getString(R.string.leader1, bName3, conversionOfTime(best3)));
+            }
         }
 
 
