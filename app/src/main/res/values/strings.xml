@@ -21,7 +21,7 @@
         8. View your current and best timing\n
     </string>
     <string name="downloading">downloading %1$d of 20 images</string>
-<string name="leader1">%1$s \t\t\t\t\t\t %2$s</string>
+<string name="leader1">%1$s \t\t\t\t\t\t\t\t\t\t\t %2$s</string>
     <string name="download_complete">Download completed for 20 of 20 images!</string>
     <string name="errorUrlNotification">Error! Please enter a correct URL.</string>
     <string name="no_enough_image">not enough valid image.</string>
