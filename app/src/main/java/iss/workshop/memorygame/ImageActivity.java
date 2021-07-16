@@ -63,7 +63,7 @@ public class ImageActivity extends AppCompatActivity {
                 mErrolTextview.setVisibility(View.INVISIBLE);
                 if (bkgdThread != null)
                     bkgdThread.interrupt();
-
+                setDefaultImage();
                 bkgdThread = new MyThread();
                 bkgdThread.start();
             }

@@ -13,9 +13,9 @@
         android:theme="@style/Theme.MemoryGame">
         <activity
             android:name=".ImageActivity"
-            android:theme="@style/Theme.MemoryGame2"/>
-<!--            android:configChanges="keyboardHidden|orientation"-->
-<!--            android:windowSoftInputMode="adjustNothing" -->
+            android:theme="@style/Theme.MemoryGame2"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustNothing"/>
 
         <activity android:name=".EndActivity" />
         <activity android:name=".GameActivity"
