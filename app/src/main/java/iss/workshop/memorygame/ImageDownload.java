@@ -87,7 +87,7 @@ public class ImageDownload {
 
             InputStream in=conn.getInputStream();
             Bitmap bitmap= BitmapFactory.decodeStream(in);
-
+            bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false);
             in.close();
             return bitmap;
         }catch (Exception e){
