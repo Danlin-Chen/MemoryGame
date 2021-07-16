@@ -2,6 +2,7 @@ package iss.workshop.memorygame;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -87,12 +88,31 @@ public class ImageDownload {
 
             InputStream in=conn.getInputStream();
             Bitmap bitmap= BitmapFactory.decodeStream(in);
-            bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, false);
+            bitmap = scaleImage(bitmap);
             in.close();
             return bitmap;
         }catch (Exception e){
             e.printStackTrace();
         }
         return null;
+    }
+    public static Bitmap scaleImage(Bitmap bm){
+
+        int screenWidth = 140;
+        int screenHeight = 175;
+
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        float scaleWidth = ((float) screenWidth) / width;
+        float scaleHeight=((float) screenHeight) / height;
+
+        float scale=Math.max(scaleWidth,scaleHeight);
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+
+        Bitmap newBm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return newBm;
     }
 }
