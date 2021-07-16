@@ -35,7 +35,6 @@ public class ImageActivity extends AppCompatActivity {
     private EditText mInputURLTxt;
     private Button mFetchBtn;
     private Thread bkgdThread;
-    private ImageAdapter mImageAdapter;
     private final int semiTransparentGrey = Color.argb(155, 185, 185, 185);
     private final int numberOfImages = 6;
     private boolean downloadCompleted = false;
