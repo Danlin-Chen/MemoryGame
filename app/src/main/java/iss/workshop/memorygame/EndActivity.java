@@ -29,11 +29,6 @@ public class EndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
 
-        boolean onDestroy = false;
-        if (savedInstanceState !=null){
-            onDestroy = savedInstanceState.getBoolean("onDestroy");
-        }
-
         applauseSound();
         mScoreChart = findViewById(R.id.scoreline2);
         mPlayAgainBtn = findViewById(R.id.playAgainBtn);
@@ -76,8 +71,12 @@ public class EndActivity extends AppCompatActivity {
 
         mScoreChart.setText(getString(R.string.score2_vertical, conversionOfTime(score)));
 
-        if (onDestroy){
-            mScoreChart.setText(getString(R.string.score2_vertical, conversionOfTime(score)));
+        boolean fromOnDestroy = false;
+        if (savedInstanceState !=null){
+            fromOnDestroy = savedInstanceState.getBoolean("fromOnDestroy");
+        }
+
+        if (fromOnDestroy){
             if (bName1 !=null){
                 mBestOne.setText(getString(R.string.leader1,bName1, conversionOfTime(best1)));
             }
@@ -193,6 +192,6 @@ public class EndActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
-        outState.putBoolean("onDestroy", true);
+        outState.putBoolean("fromOnDestroy", true);
     }
 }

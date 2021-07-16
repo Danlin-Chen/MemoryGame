@@ -49,9 +49,6 @@ public class ImageAdapter extends BaseAdapter {
         else
         {
             imageView = (ImageView) convertView;
-            imageView.setPadding(10, 10, 10, 10);
-            imageView.setBackgroundResource(R.drawable.bg_card);
-            imageView.clearColorFilter();
         }
         imageView.setImageBitmap(imgInfoList.get(position));
         return imageView;
